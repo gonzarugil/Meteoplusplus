@@ -1,4 +1,4 @@
-#!/home/gonzalo/Meteo/venv/bin/python2.7
+#!/home/gonzalo/Meteo/venv/bin/python3.4
 #
 # Very simple serial terminal
 #
