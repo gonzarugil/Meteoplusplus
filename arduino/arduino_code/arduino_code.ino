@@ -101,8 +101,11 @@ void loop() {
       break;
       case '1':
       String aux1= "T "+Temperatura;
-      BT1.println(Temperatura);
-      delay(200);
+      BT1.print("Temperatura ");
+      BT1.print(Temperatura);
+      BT1.print("Humedad ");
+      BT1.println(Humedad);
+      delay(200); 
      
     }
   }else{
