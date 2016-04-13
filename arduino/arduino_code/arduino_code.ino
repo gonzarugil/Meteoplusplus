@@ -47,9 +47,9 @@ void loop() {
   Temperatura = dht.readTemperature();//Lee la temperatura
   
  // lcd.setCursor(0,0);
-  /*lcd.write(BT1.read());
+  lcd.write(BT1.read());
   delay(2000);
-  lcd.clear(); */ 
+  lcd.clear();  
   lcd.setCursor(0, 0);//Situamos el lugar donde empezará la escritura
   lcd.print("HUMEDAD");//Escribimos HUMEDAD en la LCD
   lcd.setCursor(12, 0);//Situamos el lugar donde empezará la escritura.
@@ -100,18 +100,52 @@ void loop() {
         delay(2000);
       break;
       case '1':
-      String aux1= "T "+Temperatura;
-      BT1.print("Temperatura ");
-      BT1.print(Temperatura);
-      BT1.print("Humedad ");
-      BT1.println(Humedad);
-      delay(200); 
-     
+        //String aux1= "T "+Temperatura;
+        BT1.print("Temperatura ");
+        BT1.print(Temperatura);
+        BT1.print(" C ");
+        BT1.print("Humedad ");
+        BT1.print(Humedad);
+        BT1.print(" % ");
+        BT1.print("Humedad Suelo ");
+        BT1.print(Valor);
+        BT1.print(" % ");
+        BT1.print("Nivel agua ");
+        BT1.println(Agua);
+        delay(200); 
+      break;
+
+      case '2':
+        BT1.print("Humedad ");
+        BT1.print(Humedad);
+        BT1.println("%");
+        delay(200);
+        break;
+       
+      case '3':
+        BT1.print("Temperatura ");
+        BT1.print(Temperatura);
+        BT1.println("C");
+        delay(200);
+        break;
+      case '4':
+        BT1.print("Humedad Suelo ");
+        BT1.print(Valor);
+        BT1.println("%");
+        delay(200);
+        break;
+      case '5':
+        BT1.print("Nivel de Agua ");
+        BT1.println(Agua);
+        delay(200);
+        break;  
+      
+  //TERMINAR   
     }
   }else{
     lcd.setCursor(0,0);
     lcd.write("Bluetooth off");
-    delay(2000);
+    delay(1000);
     lcd.clear();
     
   }
