@@ -15,6 +15,7 @@ auth = tweepy.OAuthHandler('xOca0pffD13sxRvY0mTdR9Kef', 'T62Pl6IpqJ9MkvHEIjf7ooN
 auth.set_access_token('716272805042601986-Is7aB8RKV8DaLp8WqMbJmSH9CpFd2ze',
                       'TrZ62MZXW7dE1AZj0vUP4A6m2cipUEvunWzsKT2xH1epr')
 api = tweepy.API(auth)
+api.wait_on_rate_limit = True
 
 while(True):
     # Check of mentions in twitter
