@@ -19,13 +19,14 @@ api.wait_on_rate_limit = True
 
 while(True):
     # Check of mentions in twitter
-    mentions = api.mentions_timeline()
+    mentions = api.mentions_timeline(count=20)
     for tweet in mentions:
         list = tweet.text.split()
         if set(["#weather", "#temperature", "#humidity", "#ground","#rain","#pressure"]).intersection(set(list)):
-            twid = tweet.id
-            sn = tweet.user.screen_name
-            replies = api.search(q=sn, sinceId=twid)
+            twid = tweet.id # We save the id of the current tweet
+            sn = tweet.user.screen_name # We save the screen name of the user who posted it
+            # replies = api.search(q=sn, sinceId=twid)
+            replies = api.user_timeline(since_id=twid,count=30)
             found = False
             for e in replies:
                 if e.in_reply_to_status_id == twid:
@@ -46,13 +47,19 @@ while(True):
                 elif "#pressure" in list:
                     BT.write("6".encode('utf-8'))
 
+                time.sleep(2)
                 # Here we receive the response and tweet it
                 btresponse = BT.readline()
                 decoded = btresponse.decode('utf-8')
                 if decoded != "":
                     reply = "@{0} {1}".format(sn, decoded)
                     print("twitteando:" + reply)
-                    api.update_status(reply, twid)
+                    try:
+                        api.update_status(reply, twid)
+                        print("twiteado")
+                        time.sleep(5)
+                    except tweepy.TweepError as err:
+                        print(err.message)
 
     time.sleep(60)
     print("application running")

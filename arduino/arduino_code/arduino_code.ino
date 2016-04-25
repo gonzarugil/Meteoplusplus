@@ -1,9 +1,18 @@
+
+
+
 #include <LiquidCrystal.h>//Incluimos la libreria de la LCD
 #include <SoftwareSerial.h>// Incluimos la libreria para bluetooth
-#include "DHT.h"//Incluye libraría de control del sensor
+#include <Wire.h>
+#include <BMP180.h>
+
+#include <DHT.h>//Incluye libraría de control del sensor
 #define DHTPIN 8 //Defiene el pin al que se conectará el sensor
 #define DHTTYPE DHT11//Seleciona el tipo de sensor
+
 SoftwareSerial BT1(10,7);
+BMP180 barometer;
+
 
 DHT dht(DHTPIN, DHTTYPE);//Configura la libraría
 int analogPin=0;//Declaramos que queremos usar el pin analógico 0
@@ -23,6 +32,17 @@ void setup() {
   
   dht.begin();//Inicializa la libraria dht
   Serial.begin(9600);
+  Wire.begin();
+  barometer = BMP180();
+  
+  if(barometer.EnsureConnected()) {
+    Serial.println("Connected to BMP180.");
+    barometer.SoftReset();
+    barometer.Initialize();
+    } else {
+      Serial.println("No sensor found.");
+      }
+  
   BT1.begin(9600);
   lcd.begin(16, 2);//Iniciamos la pantalla y le decimos el numero de caracteres y filas
   
@@ -36,6 +56,8 @@ void setup() {
   lcd.setCursor(3, 1);//Situamos el lugar donde empezará la escritura
   lcd.print("Meteorologica");//Escribimos Electronics en la LCD
   delay (2000);//Esperamos dos segundos
+  lcd.clear();
+  
   lcd.clear();//Limpiamos la pantalla
   
   
